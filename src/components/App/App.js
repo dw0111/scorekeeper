@@ -3,6 +3,7 @@ import PlayerForm from '../PlayerForm/PlayerForm'
 import Player from '../Player/Player'
 import Button from '../Button/Button'
 import { useState } from 'react'
+import GameForm from '../GameForm/GameForm'
 
 function App() {
   let [players, setPlayers] = useState([
@@ -29,6 +30,8 @@ function App() {
         }
       />
       <Button text="Reset all" onClick={() => setPlayers([])} />
+
+      <GameForm onCreateGame={newGame} />
     </div>
   )
 
@@ -46,6 +49,10 @@ function App() {
       { name: players[index].name, score: players[index].score - 1 },
       ...players.slice(index + 1),
     ])
+  }
+
+  function newGame(game, players) {
+    console.log(`Game is called ${game}. The players are ${players}`)
   }
 }
 
