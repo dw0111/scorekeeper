@@ -1,0 +1,7 @@
+.Navigation__btn {
+  background: #fef;
+}
+
+.Navigation__btn--active {
+  background: hotpink;
+}

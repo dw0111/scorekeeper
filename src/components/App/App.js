@@ -6,12 +6,16 @@ import { useState } from 'react'
 import GameForm from '../GameForm/GameForm'
 import Header from '../Header/Header'
 import History from '../HistoryEntry/HistoryEntry'
+import Navigation from '../Navigation/Navigation'
 
 function App() {
   let [players, setPlayers] = useState([
     { name: 'John Doe', score: 2 },
     { name: 'Jane Doe', score: 40 },
   ])
+
+  const [activeIndex, setActiveIndex] = useState(0)
+  const pages = ['Play', 'History']
 
   return (
     <div className="App">
@@ -37,6 +41,14 @@ function App() {
       <History
         nameOfGame="Carcassonne"
         players={[{ name: 'John Doe', score: 40 }]}
+      />
+      <Navigation
+        onNavigate={(page, index) => {
+          console.log(`Changed to ${page}`)
+          setActiveIndex(index)
+        }}
+        pages={pages}
+        activeIndex={activeIndex}
       />
     </div>
   )
