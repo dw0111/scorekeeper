@@ -1,10 +1,25 @@
 import './PlayerForm.css'
 
-export default function PlayerForm({ handleSubmit, players, addPlayer }) {
+export default function PlayerForm({ players, addPlayer }) {
+  function cleanSubmit(event) {
+    const form = event.target
+    const input = form.elements.name
+    const name = input.value
+
+    form.reset()
+    input.focus()
+
+    return name
+  }
+
   return (
     <form
       className="PlayerForm"
-      onSubmit={event => handleSubmit(event, players, addPlayer)}
+      onSubmit={event => {
+        event.preventDefault()
+        const newPlayer = cleanSubmit(event)
+        addPlayer([{ name: newPlayer, score: 0 }, ...players])
+      }}
     >
       <label>
         Add player:

@@ -5,47 +5,48 @@ import Button from '../Button/Button'
 import { useState } from 'react'
 
 function App() {
-  let [players, setPlayers] = useState(['John Doe', 'Jane Doe'])
+  let [players, setPlayers] = useState([
+    { name: 'John Doe', score: 2 },
+    { name: 'Jane Doe', score: 40 },
+  ])
 
   return (
     <div className="App">
-      <PlayerForm
-        handleSubmit={addPlayer}
-        players={players}
-        addPlayer={setPlayers}
-      />
-      {players.map(player => (
+      <PlayerForm players={players} addPlayer={setPlayers} />
+      {players.map((player, index) => (
         <Player
-          playerName={player}
-          score={0}
-          onMinus={() => console.log('Minus was clicked')}
-          onPlus={() => console.log('Plus was clicked')}
-          key={player}
+          playerName={player.name}
+          score={player.score}
+          onMinus={() => onMinus(index)}
+          onPlus={() => onPlus(index)}
+          key={player.name}
         />
       ))}
       <Button
         text="Reset scores"
-        onClick={() => console.log('Scores were reset')}
+        onClick={() =>
+          setPlayers(players.map(player => ({ name: player.name, score: 0 })))
+        }
       />
-      <Button
-        text="Reset all"
-        onClick={() => console.log('Everything was reset')}
-      />
+      <Button text="Reset all" onClick={() => setPlayers([])} />
     </div>
   )
+
+  function onPlus(index) {
+    setPlayers([
+      ...players.slice(0, index),
+      { name: players[index].name, score: players[index].score + 1 },
+      ...players.slice(index + 1),
+    ])
+  }
+
+  function onMinus(index) {
+    setPlayers([
+      ...players.slice(0, index),
+      { name: players[index].name, score: players[index].score - 1 },
+      ...players.slice(index + 1),
+    ])
+  }
 }
 
 export default App
-
-function addPlayer(event, players, addPlayer) {
-  event.preventDefault()
-
-  const form = event.target
-  const input = form.elements.name
-  const name = input.value
-
-  form.reset()
-  input.focus()
-
-  addPlayer([...players, name])
-}
