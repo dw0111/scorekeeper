@@ -1,12 +1,18 @@
 import './Player.css'
 
-export default function Player({name, score, onMinus, onPlus}) {
+export default function Player({ playerName, score, onMinus, onPlus }) {
   return (
-    <div className="Player">
-      {name}
-      <button className="Player__button" onClick={onMinus}> - </button>
-      <span>{score}</span>
-      <button className="Player__button" onClick={onPlus}> + </button>
-    </div>
+    <section className="Player">
+      {playerName}
+      <div className="Player__counter">
+        <button className="Player__btn" onClick={onMinus}>
+          -
+        </button>
+        <span className="Player__score">{score}</span>
+        <button className="Player__btn" onClick={onPlus}>
+          +
+        </button>
+      </div>
+    </section>
   )
 }

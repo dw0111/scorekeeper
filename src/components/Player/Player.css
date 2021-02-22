@@ -1,0 +1,17 @@
+.Player {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+
+.Player__btn {
+  height: 2em;
+  width: 2em;
+  padding: 0;
+  border: 1px solid #bbb;
+  background: white;
+  border-radius: 2px;
+}
+
+.Player__score {
+  padding: 0 10px;
+}
