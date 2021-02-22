@@ -1,7 +1,17 @@
+.Navigation {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+}
+
 .Navigation__btn {
-  background: #fef;
+  width: 50%;
+  padding: 20px;
+  border: none;
+  background: #eee;
 }
 
 .Navigation__btn--active {
-  background: hotpink;
+  background: #fae48bff;
 }

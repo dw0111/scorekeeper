@@ -7,11 +7,9 @@ export default function Navigation({ onNavigate, pages, activeIndex }) {
         <button
           key={page}
           onClick={() => onNavigate(page, index)}
-          className={
-            index === activeIndex
-              ? 'Navigation__btn--active'
-              : 'Navigation__btn'
-          }
+          className={`Navigation__btn ${
+            index === activeIndex && 'Navigation__btn--active'
+          }`}
         >
           {page}
         </button>

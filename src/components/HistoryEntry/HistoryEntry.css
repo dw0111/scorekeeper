@@ -1,0 +1,14 @@
+.HistoryEntry {
+  width: 100%;
+}
+
+.History__name {
+  font-size: 120%;
+  margin-bottom: 10px;
+}
+
+.History__players {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
