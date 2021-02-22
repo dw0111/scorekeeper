@@ -4,6 +4,7 @@ import Player from '../Player/Player'
 import Button from '../Button/Button'
 import { useState } from 'react'
 import GameForm from '../GameForm/GameForm'
+import Header from '../Header/Header'
 
 function App() {
   let [players, setPlayers] = useState([
@@ -30,8 +31,8 @@ function App() {
         }
       />
       <Button text="Reset all" onClick={() => setPlayers([])} />
-
       <GameForm onCreateGame={newGame} />
+      <Header text="Carcassonne" />
     </div>
   )
 
