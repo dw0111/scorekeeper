@@ -1,9 +1,14 @@
-import './Header.css'
+import styled from 'styled-components'
 
 export default function Header({ text }) {
   return (
-    <header className="Header">
+    <HeaderElement>
       <h2>{text}</h2>
-    </header>
+    </HeaderElement>
   )
 }
+
+const HeaderElement = styled.header`
+  text-align: center;
+  font-size: 90%;
+`

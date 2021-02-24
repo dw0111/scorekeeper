@@ -1,17 +1,31 @@
-import './HistoryEntry.css'
+import styled from 'styled-components'
 
 export default function HistoryEntry({ nameOfGame, players }) {
   return (
-    <section className="HistoryEntry">
-      <div className="History__name">{nameOfGame}</div>
-      <div className="History__players">
+    <HistoryElement>
+      <HistoryName>{nameOfGame}</HistoryName>
+      <HistoryPlayers>
         {players.map((player, index) => (
           <>
             <span key={index}>{player.name}</span>
             <span key={`${index}.score`}>{player.score}</span>
           </>
         ))}
-      </div>
-    </section>
+      </HistoryPlayers>
+    </HistoryElement>
   )
 }
+
+const HistoryElement = styled.section`
+  width: 100%;
+`
+
+const HistoryName = styled.div`
+  font-size: 120%;
+  margin-bottom: 10px;
+`
+const HistoryPlayers = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+`

@@ -1,4 +1,3 @@
-import './App.css'
 import { useState } from 'react'
 import PlayerForm from '../PlayerForm/PlayerForm'
 import Player from '../Player/Player'
@@ -7,6 +6,7 @@ import GameForm from '../GameForm/GameForm'
 import Header from '../Header/Header'
 import History from '../HistoryEntry/HistoryEntry'
 import Navigation from '../Navigation/Navigation'
+import styled from 'styled-components'
 
 function App() {
   let [players, setPlayers] = useState([
@@ -18,7 +18,7 @@ function App() {
   const pages = ['Play', 'History']
 
   return (
-    <div className="App">
+    <AppGrid>
       <PlayerForm players={players} addPlayer={setPlayers} />
       {players.map((player, index) => (
         <Player
@@ -30,12 +30,13 @@ function App() {
         />
       ))}
       <Button
-        text="Reset scores"
         onClick={() =>
           setPlayers(players.map(player => ({ name: player.name, score: 0 })))
         }
-      />
-      <Button text="Reset all" onClick={() => setPlayers([])} />
+      >
+        Reset scores
+      </Button>
+      <Button onClick={() => setPlayers([])}>Reset all</Button>
       <GameForm onCreateGame={newGame} />
       <Header text="Carcassonne" />
       <History
@@ -50,7 +51,7 @@ function App() {
         pages={pages}
         activeIndex={activeIndex}
       />
-    </div>
+    </AppGrid>
   )
 
   function onPlus(index) {
@@ -75,3 +76,9 @@ function App() {
 }
 
 export default App
+
+const AppGrid = styled.div`
+  display: grid;
+  gap: 20px;
+  padding: 20px;
+`

@@ -1,14 +1,19 @@
-import './Input.css'
+import styled from 'styled-components'
 
 export default function Input({ labelText, placeholderText, name }) {
   return (
     <label className="Input">
       {labelText}
-      <input
-        className="Input__input"
-        placeholder={placeholderText}
-        name={name}
-      />
+      <InputField placeholder={placeholderText} name={name} />
     </label>
   )
 }
+
+const InputField = styled.input`
+  display: block;
+  width: 100%;
+  padding: 7px;
+  margin: 10px 0;
+  border: 2px solid #123;
+  border-radius: 3px;
+`

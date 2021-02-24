@@ -1,6 +1,5 @@
 import Input from '../Input/Input'
-import './GameForm.css'
-import '../Button/Button.css'
+import Button from '../Button/Button'
 
 export default function GameForm({ onCreateGame }) {
   return (
@@ -21,7 +20,7 @@ export default function GameForm({ onCreateGame }) {
         placeholderText="e.g. John Doe, Jane Doe, ..."
         name="players"
       />
-      <button className="Button">New game</button>
+      <Button>New game</Button>
     </form>
   )
 
