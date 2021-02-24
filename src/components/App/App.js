@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import PlayPage from '../PlayPage/PlayPage'
-import Navigation from '../Navigation/Navigation'
-import styled from 'styled-components'
 import { v4 as uuidv4 } from 'uuid'
+import styled from 'styled-components/macro'
+import Navigation from '../Navigation/Navigation'
+import PlayPage from '../PlayPage/PlayPage'
 import GamePage from '../GamePage/GamePage'
 import HistoryPage from '../HistoryPage/HistoryPage'
 

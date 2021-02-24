@@ -1,6 +1,6 @@
 import Input from '../Input/Input'
 import Button from '../Button/Button'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 export default function PlayPage({ onCreateGame }) {
   return (

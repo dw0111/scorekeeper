@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 export default function Navigation({ onNavigate, currentPage }) {
   return (
