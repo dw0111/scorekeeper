@@ -1,71 +1,36 @@
 import { useState } from 'react'
-import Player from '../Player/Player'
-import Button from '../Button/Button'
-import GameForm from '../GameForm/GameForm'
-import Header from '../Header/Header'
+import PlayPage from '../PlayPage/PlayPage'
 import Navigation from '../Navigation/Navigation'
 import styled from 'styled-components'
-import HistoryEntry from '../HistoryEntry/HistoryEntry'
 import { v4 as uuidv4 } from 'uuid'
+import GamePage from '../GamePage/GamePage'
+import HistoryPage from '../HistoryPage/HistoryPage'
 
-function App() {
+export default function App() {
   const [players, setPlayers] = useState([])
   const [nameOfGame, setNameOfGame] = useState('')
   const [currentPage, setCurrentPage] = useState('play')
   const [history, setHistory] = useState([])
 
-  function endGame() {
-    setHistory([{ nameOfGame, players, id: uuidv4() }, ...history])
-    setNameOfGame('')
-    setPlayers([])
-    setCurrentPage('history')
-  }
-
   return (
     <AppGrid>
-      {currentPage === 'play' && (
-        <div>
-          <GameForm onCreateGame={newGame} />
-        </div>
-      )}
+      {currentPage === 'play' && <PlayPage onCreateGame={newGame} />}
 
       {currentPage === 'game' && (
-        <GamePage>
-          <Header text={nameOfGame} />
-          {players.map((player, index) => (
-            <Player
-              playerName={player.name}
-              score={player.score}
-              onMinus={() => onMinus(index)}
-              onPlus={() => onPlus(index)}
-              key={player.name}
-            />
-          ))}
-          <Button
-            onClick={() =>
-              setPlayers(
-                players.map(player => ({ name: player.name, score: 0 }))
-              )
-            }
-          >
-            Reset scores
-          </Button>
-          <Button onClick={endGame}>End Game</Button>
-        </GamePage>
+        <GamePage
+          nameOfGame={nameOfGame}
+          players={players}
+          onMinus={onMinus}
+          onPlus={onPlus}
+          onReset={setPlayers}
+          onEndGame={endGame}
+        />
       )}
 
-      {currentPage === 'history' && (
-        <div>
-          {history.map(({ nameOfGame, players, id }) => (
-            <HistoryEntry nameOfGame={nameOfGame} players={players} key={id} />
-          ))}
-        </div>
-      )}
+      {currentPage === 'history' && <HistoryPage history={history} />}
 
       {(currentPage === 'play' || currentPage === 'history') && (
-        <div>
-          <Navigation onNavigate={setCurrentPage} currentPage={currentPage} />
-        </div>
+        <Navigation onNavigate={setCurrentPage} currentPage={currentPage} />
       )}
     </AppGrid>
   )
@@ -91,17 +56,17 @@ function App() {
     setNameOfGame(game)
     setCurrentPage('game')
   }
-}
 
-export default App
+  function endGame() {
+    setHistory([{ nameOfGame, players, id: uuidv4() }, ...history])
+    setNameOfGame('')
+    setPlayers([])
+    setCurrentPage('history')
+  }
+}
 
 const AppGrid = styled.div`
   display: grid;
   gap: 20px;
   padding: 20px;
-`
-
-const GamePage = styled.div`
-  display: grid;
-  gap: 20px;
 `

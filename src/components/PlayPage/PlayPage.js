@@ -2,7 +2,7 @@ import Input from '../Input/Input'
 import Button from '../Button/Button'
 import styled from 'styled-components'
 
-export default function GameForm({ onCreateGame }) {
+export default function PlayPage({ onCreateGame }) {
   return (
     <Form onSubmit={e => handleSubmit(e)}>
       <Input
