@@ -17,6 +17,8 @@ export default function HistoryEntry({ nameOfGame, players }) {
 }
 
 const HistoryElement = styled.section`
+  display: grid;
+  gap: 20px;
   width: 100%;
 `
 

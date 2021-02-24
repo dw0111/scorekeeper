@@ -8,7 +8,7 @@ export default createGlobalStyle`
 body {
   margin: 0;
   font-size: 112.5%;
-  font-family: sans-serif;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
 input,

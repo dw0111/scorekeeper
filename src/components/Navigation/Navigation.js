@@ -1,19 +1,20 @@
 import styled from 'styled-components'
 
-export default function Navigation({ onNavigate, pages, activeIndex }) {
+export default function Navigation({ onNavigate, currentPage }) {
   return (
     <Nav>
-      {pages.map((page, index) =>
-        index === activeIndex ? (
-          <ActiveButton key={page} onClick={() => onNavigate(page, index)}>
-            {page}
-          </ActiveButton>
-        ) : (
-          <NavButton key={page} onClick={() => onNavigate(page, index)}>
-            {page}
-          </NavButton>
-        )
-      )}
+      <NavButton
+        onClick={() => onNavigate('play')}
+        isActive={currentPage === 'play'}
+      >
+        Play
+      </NavButton>
+      <NavButton
+        onClick={() => onNavigate('history')}
+        isActive={currentPage === 'history'}
+      >
+        History
+      </NavButton>
     </Nav>
   )
 }
@@ -31,11 +32,5 @@ const NavButton = styled.button`
   background: #bbb;
   border: none;
   width: 50%;
-`
-
-const ActiveButton = styled.button`
-  background: #fae48bff;
-  padding: 15px;
-  border: none;
-  width: 50%;
+  ${props => props.isActive && 'background: #fae48bff;'}
 `
