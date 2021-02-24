@@ -6,14 +6,20 @@ import Header from '../Header/Header'
 import Navigation from '../Navigation/Navigation'
 import styled from 'styled-components'
 import HistoryEntry from '../HistoryEntry/HistoryEntry'
+import { v4 as uuidv4 } from 'uuid'
 
 function App() {
-  let [players, setPlayers] = useState([
-    { name: 'John Doe', score: 2 },
-    { name: 'Jane Doe', score: 40 },
-  ])
+  const [players, setPlayers] = useState([])
+  const [nameOfGame, setNameOfGame] = useState('')
+  const [currentPage, setCurrentPage] = useState('play')
+  const [history, setHistory] = useState([])
 
-  const [currentPage, setCurrentPage] = useState('history')
+  function endGame() {
+    setHistory([{ nameOfGame, players, id: uuidv4() }, ...history])
+    setNameOfGame('')
+    setPlayers([])
+    setCurrentPage('history')
+  }
 
   return (
     <AppGrid>
@@ -25,7 +31,7 @@ function App() {
 
       {currentPage === 'game' && (
         <GamePage>
-          <Header text="Carcassonne" />
+          <Header text={nameOfGame} />
           {players.map((player, index) => (
             <Player
               playerName={player.name}
@@ -44,16 +50,15 @@ function App() {
           >
             Reset scores
           </Button>
-          <Button onClick={() => console.log('End Game')}>End Game</Button>
+          <Button onClick={endGame}>End Game</Button>
         </GamePage>
       )}
 
       {currentPage === 'history' && (
         <div>
-          <HistoryEntry
-            nameOfGame="Carcassonne"
-            players={[{ name: 'John Doe', score: 40 }]}
-          />
+          {history.map(({ nameOfGame, players, id }) => (
+            <HistoryEntry nameOfGame={nameOfGame} players={players} key={id} />
+          ))}
         </div>
       )}
 
@@ -81,8 +86,10 @@ function App() {
     ])
   }
 
-  function newGame(game, players) {
-    console.log(`Game is called ${game}. The players are ${players}`)
+  function newGame(game, playerNames) {
+    setPlayers(playerNames.map(name => ({ name, score: 0 })))
+    setNameOfGame(game)
+    setCurrentPage('game')
   }
 }
 

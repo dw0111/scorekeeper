@@ -1,15 +1,16 @@
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
+import { v4 as uuidv4 } from 'uuid'
 
 export default function HistoryEntry({ nameOfGame, players }) {
   return (
     <HistoryElement>
       <HistoryName>{nameOfGame}</HistoryName>
       <HistoryPlayers>
-        {players.map((player, index) => (
-          <>
-            <span key={index}>{player.name}</span>
-            <span key={`${index}.score`}>{player.score}</span>
-          </>
+        {players.map(player => (
+          <HistoryPlayer key={uuidv4()}>
+            <span>{player.name}</span>
+            <span>{player.score}</span>
+          </HistoryPlayer>
         ))}
       </HistoryPlayers>
     </HistoryElement>
@@ -18,16 +19,20 @@ export default function HistoryEntry({ nameOfGame, players }) {
 
 const HistoryElement = styled.section`
   display: grid;
-  gap: 20px;
+  gap: 10px;
   width: 100%;
 `
 
 const HistoryName = styled.div`
   font-size: 120%;
-  margin-bottom: 10px;
 `
 const HistoryPlayers = styled.div`
+  display: grid;
+  gap: 8px;
+`
+
+const HistoryPlayer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  width: 100%;
 `

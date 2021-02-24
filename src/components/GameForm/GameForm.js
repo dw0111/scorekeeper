@@ -4,12 +4,7 @@ import styled from 'styled-components'
 
 export default function GameForm({ onCreateGame }) {
   return (
-    <Form
-      onSubmit={e => {
-        const [game, players] = cleanSubmit(e)
-        onCreateGame(game, players)
-      }}
-    >
+    <Form onSubmit={e => handleSubmit(e)}>
       <Input
         labelText="Name of game"
         placeholderText="e.g. Carcarssonne"
@@ -24,14 +19,14 @@ export default function GameForm({ onCreateGame }) {
     </Form>
   )
 
-  function cleanSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault()
 
     const game = e.target.elements.game.value
-    const playersInString = e.target.elements.players.value
-    const players = playersInString.trim().split(',')
+    const playerNamesInString = e.target.elements.players.value
+    const playerNames = playerNamesInString.split(',').map(name => name.trim())
 
-    return [game, players]
+    onCreateGame(game, playerNames)
   }
 }
 
