@@ -1,18 +1,15 @@
 import styled from 'styled-components/macro'
 
-export default function Button({ onClick, children, isActive }) {
-  return (
-    <ButtonElement onClick={onClick} isActive={isActive}>
-      {children}
-    </ButtonElement>
-  )
-}
-
-const ButtonElement = styled.button`
+export default styled.button`
   padding: 10px;
-  background: #bbb;
+  background: ${({ isActive }) => (isActive ? '#fae48bff' : '#ddd')};
   border: none;
   border-radius: 4px;
   width: 100%;
-  ${({ isActive }) => isActive && 'background: #fae48bff;'}
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  &.active {
+    background: #fae48bff;
+  }
 `

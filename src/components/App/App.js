@@ -5,33 +5,37 @@ import Navigation from '../Navigation/Navigation'
 import PlayPage from '../PlayPage/PlayPage'
 import GamePage from '../GamePage/GamePage'
 import HistoryPage from '../HistoryPage/HistoryPage'
+import { Switch, Route, useHistory } from 'react-router-dom'
 
 export default function App() {
   const [players, setPlayers] = useState([])
   const [nameOfGame, setNameOfGame] = useState('')
   const [currentPage, setCurrentPage] = useState('play')
   const [history, setHistory] = useState([])
+  const { push } = useHistory()
 
   return (
     <AppGrid>
-      {currentPage === 'play' && <PlayPage onCreateGame={newGame} />}
+      <Switch>
+        <Route exact path="/">
+          <PlayPage onCreateGame={newGame} />
+        </Route>
+        <Route path="/game">
+          <GamePage
+            nameOfGame={nameOfGame}
+            players={players}
+            onMinus={onMinus}
+            onPlus={onPlus}
+            onReset={setPlayers}
+            onEndGame={endGame}
+          />
+        </Route>
+        <Route>
+          <HistoryPage history={history} />
+        </Route>
+      </Switch>
 
-      {currentPage === 'game' && (
-        <GamePage
-          nameOfGame={nameOfGame}
-          players={players}
-          onMinus={onMinus}
-          onPlus={onPlus}
-          onReset={setPlayers}
-          onEndGame={endGame}
-        />
-      )}
-
-      {currentPage === 'history' && <HistoryPage history={history} />}
-
-      {(currentPage === 'play' || currentPage === 'history') && (
-        <Navigation onNavigate={setCurrentPage} currentPage={currentPage} />
-      )}
+      {(currentPage === 'play' || currentPage === 'history') && <Navigation />}
     </AppGrid>
   )
 
@@ -54,14 +58,14 @@ export default function App() {
   function newGame(game, playerNames) {
     setPlayers(playerNames.map(name => ({ name, score: 0 })))
     setNameOfGame(game)
-    setCurrentPage('game')
+    push('/game')
   }
 
   function endGame() {
     setHistory([{ nameOfGame, players, id: uuidv4() }, ...history])
     setNameOfGame('')
     setPlayers([])
-    setCurrentPage('history')
+    push('/history')
   }
 }
 
